@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function extractinate() {
+    
+	var EmailSendURL = document.getElementById("EmailURL").value;
+	// test URL = "https://app.clickdimensions.com/mscrm/v2015/pages/simpleeditor/simpleeditor.aspx?accountKey=au9Y6e3q8X0C3rUTVsGbNL&orgname=Success&userlcid=1033&id=ad71365b-44df-e711-9438-00155d61b560&type=&typename=cdi_emailsend&rand=9369f927-5b5f-4657-906b-c4f413a2a93a&userid={BC249506-63C1-E611-9432-00155D61B560}&sessionId=09dcf55d-c4e4-e711-9438-00155d61b560"
+    
+	var urlQuerySplit = EmailSendURL.split("?");
+    var queryString = urlQuerySplit[1];
+	var stringPairs = queryString.split("&");
+	
+	var accountKeyPair = stringPairs[0];
+	var accountKey = accountKeyPair.split("=");
+	document.getElementById("accountKeyDisplay").innerHTML = accountKey[1];
+	
+	var orgnamePair = stringPairs[1];
+	var orgname = orgnamePair.split("=");
+	document.getElementById("orgnameDisplay").innerHTML = orgname[1];
+	
+	var idPair = stringPairs[3];
+	var emailSendId = idPair.split("=");
+	document.getElementById("idDisplay").innerHTML = emailSendId[1];
+}
+
+function displayRegion() {
+
+var EmailSendURL = document.getElementById("EmailURL").value;
+var US = EmailSendURL.includes("app.clickdimensions");
+var EU = EmailSendURL.includes("app-eu.clickdimensions");
+var AU = EmailSendURL.includes("app-au.clickdimensions");
+
+if (US) { 
+	document.getElementById("regionDisplay").innerHTML = "US";
+	} else if (EU) {
+	document.getElementById("regionDisplay").innerHTML = "EU";
+	} else if (AU) {
+	document.getElementById("regionDisplay").innerHTML = "AU";
+	} else {
+	document.getElementById("regionDisplay").innerHTML = "BROKEN!";
+	}
+}
+
+
+</script>
+
+</head>
+<body>
+
+
+Email Send URL: <input size="100%" id="EmailURL" type="text"> <br>
+
+<p>Click the button to display the array values after the split.</p>
+
+<button onclick="extractinate(); displayRegion();">Extract</button>
+<br><hr><br>
+
+Region: <span id="regionDisplay"></span>
+<br><br>
+accountKey: <span id="accountKeyDisplay"></span>
+<br><br>
+orgname: <span id="orgnameDisplay"></span>
+<br><br>
+Email Send ID: <span id="idDisplay"></span> 
+
+<br> 
+
+</body>
+</html>
